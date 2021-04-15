@@ -1,16 +1,24 @@
-from discord.ext.commands import Bot
+from discord.ext import commands
+from config import settings
 
-TOKEN = "ODMyMjg3MjIwNTYzNTc0ODQy.YHhl4A.CWinKRReJe8a-sZgR_JNUFRxpgg"
+bot = commands.Bot(settings['prefix'])
 
-client = Bot(description="Test bot", command_prefix="!", pm_help=False)
+bot.remove_command('help')
 
 
-@client.event
-async def on_message(msg):
-    if msg.author != client.user:
-        if msg.content.lower() == 'привет':
+@bot.listen('on_message')
+async def welcome(msg):
+    if str(msg.content).lower() == 'привет':
+        if msg.author.name != 'SO_EZ_bot':
             await msg.channel.send(f'Привет, {msg.author.mention}')
+            await bot.process_commands(msg)
 
 
-async def on_message(msg):
-    client.run(TOKEN)
+@bot.command()
+async def help(ctx):
+    await ctx.send(f'Здравствуйте, {ctx.author.mention}\n'
+                   f'Я могу выполнять такие команды:\n'
+                   f'!help - выводит список всех команд')
+
+
+bot.run(settings['token'])
