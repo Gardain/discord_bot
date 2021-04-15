@@ -1,6 +1,6 @@
-settings = {
-    'token': '', # нужен токен,
+settings = {  # Добавил файл с конфигом
+    'token': '',  # нужен токен,
     'bot': 'Сервер Ermatkus',
     'id': '',  # нужен id(без ковычек)
-    'prefix': '!'
+    'command_prefix': '!'
 }
