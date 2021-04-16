@@ -1,8 +1,8 @@
 from discord.ext.commands import Bot
-
 from config import settings
 
 bot = Bot(command_prefix=settings['command_prefix'])
+
 
 @bot.listen('on_message')  # исправил проблему с on_message (запрещал запуск любых дополнительных команд)
 async def on_message(msg):
