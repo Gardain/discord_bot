@@ -2,6 +2,7 @@ from discord.ext.commands import Bot
 from config import settings
 
 bot = Bot(command_prefix=settings['command_prefix'])
+bot.remove_command('help')
 
 
 @bot.listen('on_message')  # исправил проблему с on_message (запрещал запуск любых дополнительных команд)
