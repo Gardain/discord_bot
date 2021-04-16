@@ -1,11 +1,7 @@
 import random
 
-from discord.ext.commands import Bot
-from config import settings
-
-bot = Bot(command_prefix=settings['command_prefix'])
-bot.remove_command('help')
-dashes = ['\u2680', '\u2681', '\u2682', '\u2683', '\u2684', '\u2685']  # игральные кубики от 1 до 6, unicode символы
+from commands import command_de_login, command_help, command_info, command_login
+from commands.config import settings, bot, dashes
 
 
 @bot.listen('on_message')  # исправил проблему с on_message (запрещал запуск любых дополнительных команд)
@@ -15,15 +11,27 @@ async def on_message(msg):
             await msg.channel.send(f'Привет, {msg.author.mention}')
 
 
+@bot.command()  # основная информация о пользователе
+async def info(ctx):
+    await command_info.info(ctx)
+
+
+@bot.command()  # "Регистрация" на канале
+async def login(ctx):
+    await command_login.login(ctx)
+
+
+@bot.command()  # "Выход" из канала
+async def de_login(ctx):
+    await command_de_login.de_login(ctx)
+
+
 @bot.command()  # добавил команду help
 async def help(msg):
-    await msg.channel.send(f'Привет, {msg.author.mention}\n'
-                           f'Я умею выполнять следующие команды:\n'
-                           f'!help - выводит список всех доступных команд\n'
-                           f'!games - выводит список возможных игр')
+    await command_help.help(msg)
 
 
-@bot.command()  # добавил команду help
+@bot.command()
 async def games(msg):
     await msg.channel.send(f'У меня есть такие игры:\n'
                            f'!roll_dice - в\n'
