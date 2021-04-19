@@ -34,7 +34,7 @@ async def help(msg):
 @bot.command()
 async def games(msg):
     await msg.channel.send(f'У меня есть такие игры:\n'
-                           f'!roll_dice - в\n'
+                           f'!roll_dice\n'
                            f'!my_randint\n'
                            f'!heads_and_tails')
 
