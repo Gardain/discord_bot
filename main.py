@@ -1,5 +1,7 @@
 import random
 
+import discord
+
 from commands import command_de_login, command_help, command_info, command_login
 from commands.config import settings, bot, dashes
 
@@ -10,10 +12,16 @@ async def on_message(msg):
         if msg.content.lower() == 'привет':
             await msg.channel.send(f'Привет, {msg.author.mention}')
 
-
 @bot.command()  # основная информация о пользователе
-async def info(ctx):
-    await command_info.info(ctx)
+async def info(ctx, member: discord.Member = None):
+    member = member or ctx.message.author
+    await command_info.info(ctx, member)
+
+
+@bot.command()  # команда для выдачи пользователю роли
+async def add_role(ctx, role: discord.Role, member: discord.Member = None):
+    member = member or ctx.message.author
+    await member.add_roles(role)
 
 
 @bot.command()  # "Регистрация" на канале
