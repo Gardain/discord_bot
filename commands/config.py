@@ -2,7 +2,7 @@ import sqlite3
 from discord.ext.commands import Bot
 
 settings = {  # Добавил файл с конфигом
-    'token': 'ODMyMzI3NjIxMTM1NDMzNzU4.YHiLgA.8gF0GD5QEZDn5MVT-VaiVtbnZ1c',  # нужен токен,
+    'token': 'ODMyMzI3NjIxMTM1NDMzNzU4.YHiLgA.CahtQinYUi91AN0eq8Ahkswp9C8',  # нужен токен,
     'bot': 'Сервер Ermatkus',
     'id': 832327621135433758,  # нужен id(без ковычек)
     'command_prefix': '!'
