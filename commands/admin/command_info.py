@@ -6,6 +6,6 @@ async def info(ctx, member):
         await ctx.channel.send(f'Данные пользователя {member.mention}\n'
                                f'id - {member.id}\n'
                                f'name - {member.name}\n'
-                               f'coins - 1000')
+                               f'coins - {member.money}')
     else:
         await ctx.channel.send(f'У вас нет прав для использования этой команды :(')

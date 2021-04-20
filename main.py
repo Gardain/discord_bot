@@ -2,8 +2,8 @@ import random
 
 import discord
 
-from commands import command_de_login, command_help, command_info, command_login
-from commands.config import settings, bot, dashes
+from commands.admin import command_de_login, command_help, command_info, command_login
+from config import settings, bot, dashes
 
 
 @bot.listen('on_message')  # исправил проблему с on_message (запрещал запуск любых дополнительных команд)
@@ -60,7 +60,6 @@ async def heads_and_tails(ctx, user_word):
             await ctx.send("Решка! Вы выиграли!")
         else:
             await ctx.send("Решка! Вы проиграли!")
-
 
 @bot.command()
 async def roll_dice(ctx, count):

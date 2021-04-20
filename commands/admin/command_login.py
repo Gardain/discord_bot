@@ -1,5 +1,5 @@
-from commands.add_member import add_member
-from commands.config import cursor
+from commands.admin.add_member import add_member
+from config import cursor
 
 
 async def login(ctx):  # "Регистрация" на канале
