@@ -1,9 +1,9 @@
 import random
-
 import discord
 
 from commands.admin import command_de_login, command_help, command_info, command_login
 from config import bot, dashes, settings
+from discord_bot.commands.admin.add_coins import add_coins
 
 
 @bot.listen('on_message')  # исправил проблему с on_message (запрещал запуск любых дополнительных команд)
@@ -49,16 +49,17 @@ async def games(msg):
 
 
 @bot.command()
-async def heads_and_tails(ctx, user_word):
+async def heads_and_tails(ctx, user_word, bet):
     num = random.randint(0, 1)
     if num == 0:
         if user_word.lower() == 'орёл':
-
+            add_coins(ctx.message.author, bet * 2)
             await ctx.send("Орёл! Вы выиграли!")
         else:
             await ctx.send("Орёл! Вы проиграли!")
     else:
         if user_word.lower() == 'решка':
+            add_coins(ctx.message.author, bet * 2)
             await ctx.send("Решка! Вы выиграли!")
         else:
             await ctx.send("Решка! Вы проиграли!")
