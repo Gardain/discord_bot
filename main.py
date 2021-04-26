@@ -50,16 +50,16 @@ async def games(msg):
 
 @bot.command()
 async def heads_and_tails(ctx, user_word, bet):
-    num = random.randint(0, 1)
-    if num == 0:
+    num = random.choice(["орёл", "решка"])
+    if num == "орёл":
         if user_word.lower() == 'орёл':
-            add_coins(ctx.message.author, bet * 2)
+            add_coins(ctx.message.author, int(bet) * 2)
             await ctx.send("Орёл! Вы выиграли!")
         else:
             await ctx.send("Орёл! Вы проиграли!")
     else:
         if user_word.lower() == 'решка':
-            add_coins(ctx.message.author, bet * 2)
+            add_coins(ctx.message.author, int(bet) * 2)
             await ctx.send("Решка! Вы выиграли!")
         else:
             await ctx.send("Решка! Вы проиграли!")
