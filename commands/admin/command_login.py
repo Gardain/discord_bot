@@ -1,5 +1,5 @@
 from discord_bot.commands.admin.add_member import add_member
-from discordbot.config import cursor
+from discord_bot.config import cursor
 
 
 async def login(ctx):  # "Регистрация" на канале
