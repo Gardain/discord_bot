@@ -1,4 +1,4 @@
-from discord_bot.config import cursor, sqlite_connection
+from config import cursor, sqlite_connection
 
 
 async def de_login(ctx):  # "Регистрация" на канале

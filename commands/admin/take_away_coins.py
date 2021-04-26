@@ -1,4 +1,4 @@
-from discord_bot.config import cursor, sqlite_connection
+from config import cursor, sqlite_connection
 
 
 def take_away_coins(msg_user, count_lose):  # функция для добавления коинов

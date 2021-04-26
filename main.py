@@ -1,10 +1,11 @@
 import random
 import discord
 
-from commands.admin import command_de_login, command_help, command_info, command_login
-from config import bot, dashes, settings
-from discord_bot.commands.admin.add_coins import add_coins
-from discord_bot.commands.admin.take_away_coins import take_away_coins
+from commands.admin import command_de_login, command_help, command_info
+from commands.base import command_login, command_roll_dice
+from config import bot, settings
+from commands.admin.add_coins import add_coins
+from commands.admin.take_away_coins import take_away_coins
 
 
 @bot.listen('on_message')  # исправил проблему с on_message (запрещал запуск любых дополнительных команд)
@@ -69,9 +70,9 @@ async def heads_and_tails(ctx, user_word, bet):
 
 
 @bot.command()
-async def roll_dice(ctx, count):
-    res = [random.choice(dashes) for _ in range(int(count))]
-    await ctx.send(" ".join(res))
+async def roll_dice(ctx):
+    await command_roll_dice.roll_dice(ctx)
+
 
 
 @bot.command()

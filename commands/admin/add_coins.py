@@ -1,4 +1,4 @@
-from discord_bot.config import cursor, sqlite_connection
+from config import cursor, sqlite_connection
 
 
 def add_coins(msg_user, count_win):  # функция для добавления коинов
