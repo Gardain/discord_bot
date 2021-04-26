@@ -4,6 +4,7 @@ import discord
 from commands.admin import command_de_login, command_help, command_info, command_login
 from config import bot, dashes, settings
 from discord_bot.commands.admin.add_coins import add_coins
+from discord_bot.commands.admin.take_away_coins import take_away_coins
 
 
 @bot.listen('on_message')  # исправил проблему с on_message (запрещал запуск любых дополнительных команд)
@@ -56,12 +57,14 @@ async def heads_and_tails(ctx, user_word, bet):
             add_coins(ctx.message.author, int(bet) * 2)
             await ctx.send("Орёл! Вы выиграли!")
         else:
+            take_away_coins(ctx.message.author, int(bet))
             await ctx.send("Орёл! Вы проиграли!")
     else:
         if user_word.lower() == 'решка':
             add_coins(ctx.message.author, int(bet) * 2)
             await ctx.send("Решка! Вы выиграли!")
         else:
+            take_away_coins(ctx.message.author, int(bet))
             await ctx.send("Решка! Вы проиграли!")
 
 
