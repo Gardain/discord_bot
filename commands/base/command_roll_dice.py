@@ -1,6 +1,6 @@
 from random import choice
 
-from config import cursor, dashes, array_of_dashes
+from config import cursor, array_of_dashes, dashes
 
 
 async def roll_dice(ctx):
