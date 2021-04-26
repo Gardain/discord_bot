@@ -53,6 +53,7 @@ async def heads_and_tails(ctx, user_word):
     num = random.randint(0, 1)
     if num == 0:
         if user_word.lower() == 'орёл':
+
             await ctx.send("Орёл! Вы выиграли!")
         else:
             await ctx.send("Орёл! Вы проиграли!")
