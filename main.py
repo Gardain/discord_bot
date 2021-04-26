@@ -3,7 +3,7 @@ import random
 import discord
 
 from commands.admin import command_de_login, command_help, command_info, command_login
-from config import settings, bot, dashes
+from discord_bot.commands.admin.config import bot, dashes, settings
 
 
 @bot.listen('on_message')  # исправил проблему с on_message (запрещал запуск любых дополнительных команд)
@@ -11,6 +11,7 @@ async def on_message(msg):
     if msg.author != bot.user:
         if msg.content.lower() == 'привет':
             await msg.channel.send(f'Привет, {msg.author.mention}')
+
 
 @bot.command()  # основная информация о пользователе
 async def info(ctx, member: discord.Member = None):
@@ -60,6 +61,7 @@ async def heads_and_tails(ctx, user_word):
             await ctx.send("Решка! Вы выиграли!")
         else:
             await ctx.send("Решка! Вы проиграли!")
+
 
 @bot.command()
 async def roll_dice(ctx, count):
