@@ -69,10 +69,10 @@ async def roll_dice(ctx, count):
     await ctx.send(" ".join(res))
 
 
-@bot.command()
-async def my_randint(ctx, min_int, max_int):
-    num = random.randint(int(min_int), int(max_int))
-    await ctx.send(num)
+#@bot.command()
+#async def my_randint(ctx, min_int, max_int):
+ #   num = random.randint(int(min_int), int(max_int))
+ #   await ctx.send(num)
 
 
 bot.run(settings['token'])
