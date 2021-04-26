@@ -3,13 +3,13 @@ import random
 import discord
 
 from commands.admin import command_de_login, command_help, command_info, command_login
-from discord_bot.commands.admin.config import bot, dashes, settings
+from config import bot, dashes, settings
 
 
 @bot.listen('on_message')  # исправил проблему с on_message (запрещал запуск любых дополнительных команд)
 async def on_message(msg):
     if msg.author != bot.user:
-        if msg.content.lower() == 'привет':
+        if msg.content.lower() == 'приве2т':
             await msg.channel.send(f'Привет, {msg.author.mention}')
 
 
