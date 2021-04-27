@@ -1,6 +1,4 @@
 import discord
-from discord.ext import commands
-from discord.utils import get
 
 from commands.admin import command_de_login, command_help, command_info
 from commands.base import command_login, command_roll_dice, command_gdz
