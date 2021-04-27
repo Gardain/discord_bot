@@ -27,28 +27,28 @@ async def roll_dice(ctx):
                 add_coins(ctx.message.author, int(bet))
                 money = cursor.execute(
                     f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
-                await ctx.channel.send(f'Вы выйграли, выпало число {count} ({dishes[0]} + {dishes[1]})')
-                await ctx.channel.send(f'Ваш баланс - {money[0]}')
+                await ctx.channel.send(f'Вы выйграли, выпало число {count} ({dishes[0]} + {dishes[1]})'
+                                       f'Ваш баланс - {money[0]}')
             else:
                 take_away_coins(ctx.message.author, int(bet))
                 money = cursor.execute(
                     f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
-                await ctx.channel.send(f'Вы проиграли, выпало число {count} ({dishes[0]} + {dishes[1]})')
-                await ctx.channel.send(f'Ваш баланс - {money[0]}')
+                await ctx.channel.send(f'Вы проиграли, выпало число {count} ({dishes[0]} + {dishes[1]})'
+                                       f'Ваш баланс - {money[0]}')
 
         elif count <= 6:
             if message[-2].lower() == 'меньше':
                 add_coins(ctx.message.author, int(bet))
                 money = cursor.execute(
                     f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
-                await ctx.channel.send(f'Вы выйграли, выпало число {count} ({dishes[0]} + {dishes[1]})')
-                await ctx.channel.send(f'Ваш баланс - {money[0]}')
+                await ctx.channel.send(f'Вы выйграли, выпало число {count} ({dishes[0]} + {dishes[1]})'
+                                       f'Ваш баланс - {money[0]}')
             else:
                 take_away_coins(ctx.message.author, int(bet))
                 money = cursor.execute(
                     f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
-                await ctx.channel.send(f'Вы проиграли, выпало число {count} ({dishes[0]} + {dishes[1]})')
-                await ctx.channel.send(f'Ваш баланс - {money[0]}')
+                await ctx.channel.send(f'Вы проиграли, выпало число {count} ({dishes[0]} + {dishes[1]})'
+                                       f'Ваш баланс - {money[0]}')
 
     else:
         await ctx.channel.send('Что-то введено не верно, повторите попытку')
