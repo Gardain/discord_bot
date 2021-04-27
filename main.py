@@ -79,18 +79,4 @@ async def roll_dice(ctx):
 
 
 
-@bot.command()
-async def choose_number(ctx, number, bet):
-    if int(bet) < 100:
-        await ctx.send("Минимальная ставка: 100 коинов")
-    else:
-        num = random.randint(1, 5)
-        if int(number) == num:
-            add_coins(ctx.message.author, int(bet) * 5)
-            await ctx.send(f"Выпало число {num}, вы выиграли!!!!!!!!")
-        else:
-            take_away_coins(ctx.message.author, int(bet))
-            await ctx.send(f"Выпало число {num}, вы проиграли(")
-
-
 bot.run(settings['token'])

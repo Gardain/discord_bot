@@ -1,6 +1,4 @@
-from discord.utils import get
-
-from config import cursor
+from discord_bot.config import cursor
 
 
 async def take_money(ctx, member):
