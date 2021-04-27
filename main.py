@@ -44,10 +44,14 @@ async def help(msg):
 
 @bot.command()
 async def games(msg):
-    await msg.channel.send(f'У меня есть такие игры:\n'
-                           f'!roll_dice\n'
-                           f'!my_randint\n'
-                           f'!heads_and_tails')
+    emb = discord.Embed(title='Навигация по командам', colour=discord.Color.gold())
+    emb.add_field(name='!roll_dice', value='Игра в кости\n'
+                                           'Пример ввода: !roll_dice [больше или меньше] [ставка]')
+    emb.add_field(name='!choose_number', value='Угадай число от 1 до 5 и сорви Джекпот!!!\n'
+                                               'Пример ввода: !choose_number [ставка]')
+    emb.add_field(name='!heads_and_tails', value='Игра в монетку.\n'
+                                                 ' Пример ввода: !heads_and_tails [орел или решка] [ставка]')
+    await msg.channel.send(embed=emb)
 
 
 @bot.command()
@@ -76,11 +80,11 @@ async def roll_dice(ctx):
 
 
 @bot.command()
-async def my_randint(ctx, number, bet):
+async def choose_number(ctx, number, bet):
     if int(bet) < 100:
         await ctx.send("Минимальная ставка: 100 коинов")
     else:
-        num = random.randint(0, 10)
+        num = random.randint(1, 5)
         if int(number) == num:
             add_coins(ctx.message.author, int(bet) * 5)
             await ctx.send(f"Выпало число {num}, вы выиграли!!!!!!!!")
