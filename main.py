@@ -1,9 +1,10 @@
 import discord
+import requests
 
 from commands.admin import command_de_login, command_help, command_info
 from commands.base import command_login, command_roll_dice, command_gdz
-from config import bot, settings, cursor
 from commands.base import command_number_choise, command_heads_and_tails
+from config import bot, settings, cursor
 
 
 @bot.listen('on_message')  # исправил проблему с on_message (запрещал запуск любых дополнительных команд)
@@ -95,6 +96,7 @@ async def roll_dice(ctx):
 async def choose_number(ctx, number, bet):
     await command_number_choise.choose_number(ctx, number, bet)
 
+
 @bot.command()
 async def heads_and_tails(ctx, user_word, bet):
     money = cursor.execute(f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
@@ -103,6 +105,25 @@ async def heads_and_tails(ctx, user_word, bet):
     else:
         await ctx.send(f"Не достаточно коинов.\n"
                        f"Ваш баланс - {money[0]}")
+
+
+@bot.command()
+async def translate(ctx, language='en|ru', *text):
+    roles = []
+    for i in ctx.message.author.roles:
+        roles.append(i.name)
+
+    if 'Переводчик' in roles:
+        url = "https://api.mymemory.translated.net/get"
+        fromm, on = language.split('|')
+        if (fromm == 'ru' or fromm == 'en') and (on == 'ru' or on == 'en'):
+            querystring = {"langpair": f"{fromm}|{on}", "q": text}
+            response = requests.request("GET", url, params=querystring).json()
+            await ctx.send(f'Перевод текста:\n{response["responseData"]["translatedText"]}')
+        else:
+            await ctx.send(f'Неверно введен язык ввода, повторите попытку')
+    else:
+        await ctx.channel.send('У вас нет прав на использование этой команды')
 
 
 @bot.command()
