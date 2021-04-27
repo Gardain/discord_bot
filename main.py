@@ -55,28 +55,8 @@ async def games(msg):
 
 
 @bot.command()
-async def heads_and_tails(ctx, user_word, bet):
-    num = random.choice(["орёл", "решка"])
-    if num == "орёл":
-        if user_word.lower() == 'орёл':
-            add_coins(ctx.message.author, int(bet) * 2)
-            await ctx.send("Орёл! Вы выиграли!")
-        else:
-            take_away_coins(ctx.message.author, int(bet))
-            await ctx.send("Орёл! Вы проиграли!")
-    else:
-        if user_word.lower() == 'решка':
-            add_coins(ctx.message.author, int(bet) * 2)
-            await ctx.send("Решка! Вы выиграли!")
-        else:
-            take_away_coins(ctx.message.author, int(bet))
-            await ctx.send("Решка! Вы проиграли!")
-
-
-@bot.command()
 async def roll_dice(ctx):
     await command_roll_dice.roll_dice(ctx)
-
 
 
 bot.run(settings['token'])
