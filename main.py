@@ -1,7 +1,7 @@
 import random
 import discord
 
-from commands.admin import command_de_login, command_help, command_info
+from commands.admin import command_de_login, command_help, command_info, command_pay
 from commands.base import command_login, command_roll_dice
 from config import bot, settings
 from commands.admin.add_coins import add_coins
@@ -87,5 +87,6 @@ async def my_randint(ctx, number, bet):
         else:
             take_away_coins(ctx.message.author, int(bet))
             await ctx.send(f"Выпало число {num}, вы проиграли(")
+
 
 bot.run(settings['token'])
