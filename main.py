@@ -1,17 +1,17 @@
-import random
 import discord
+from discord.ext import commands
+from discord.utils import get
 
-from commands.admin import command_de_login, command_help, command_info, command_pay
-from commands.base import command_login, command_roll_dice
-from config import bot, settings
-from commands.admin.add_coins import add_coins
-from commands.admin.take_away_coins import take_away_coins
+from commands.admin import command_de_login, command_help, command_info
+from commands.base import command_login, command_roll_dice, command_gdz
+from config import bot, settings, cursor
+from commands.base import command_number_choise, command_heads_and_tails
 
 
 @bot.listen('on_message')  # исправил проблему с on_message (запрещал запуск любых дополнительных команд)
 async def on_message(msg):
     if msg.author != bot.user:
-        if msg.content.lower() == 'приве2т':
+        if msg.content.lower() == 'привет':
             await msg.channel.send(f'Привет, {msg.author.mention}')
 
 
@@ -23,8 +23,42 @@ async def info(ctx, member: discord.Member = None):
 
 @bot.command()  # команда для выдачи пользователю роли
 async def add_role(ctx, role: discord.Role, member: discord.Member = None):
+    roles = []
+    for i in ctx.message.author.roles:
+        roles.append(i.name)
+
     member = member or ctx.message.author
-    await member.add_roles(role)
+    if 'Суперадмин' in roles:
+        await member.add_roles(role)
+    else:
+        await ctx.channel.send('У вас нет прав на использование этой команды')
+
+
+@bot.command()
+async def ban(ctx, member: discord.Member = None, reason=None):
+    roles = []
+    for i in ctx.message.author.roles:
+        roles.append(i.name)
+
+    member = member or ctx.message.author
+    if 'Суперадмин' in roles:
+        if member == ctx.message.author:
+            await ctx.channel.send(f'Нельзя банить самого себя!!!')
+        else:
+            await ctx.guild.ban(member, reason=reason)
+            await ctx.channel.send(f"{member} is banned!")
+    else:
+        await ctx.channel.send('У вас нет прав на использование этой команды')
+
+
+@bot.command()
+async def unban(ctx, member):
+    banned_users = await ctx.guild.bans()
+    for ban_entry in banned_users:
+        user = ban_entry.user
+        if user.name == member:
+            await ctx.guild.unban(user)
+            await ctx.send(f"Добро пожаловать. Снова. {member}")
 
 
 @bot.command()  # "Регистрация" на канале
@@ -55,42 +89,27 @@ async def games(msg):
 
 
 @bot.command()
-async def heads_and_tails(ctx, user_word, bet):
-    num = random.choice(["орёл", "решка"])
-    if num == "орёл":
-        if user_word.lower() == 'орёл':
-            add_coins(ctx.message.author, int(bet) * 2)
-            await ctx.send("Орёл! Вы выиграли!")
-        else:
-            take_away_coins(ctx.message.author, int(bet))
-            await ctx.send("Орёл! Вы проиграли!")
-    else:
-        if user_word.lower() == 'решка':
-            add_coins(ctx.message.author, int(bet) * 2)
-            await ctx.send("Решка! Вы выиграли!")
-        else:
-            take_away_coins(ctx.message.author, int(bet))
-            await ctx.send("Решка! Вы проиграли!")
-
-
-@bot.command()
 async def roll_dice(ctx):
     await command_roll_dice.roll_dice(ctx)
 
 
-
 @bot.command()
 async def choose_number(ctx, number, bet):
-    if int(bet) < 100:
-        await ctx.send("Минимальная ставка: 100 коинов")
+    await command_number_choise.choose_number(ctx, number, bet)
+
+@bot.command()
+async def heads_and_tails(ctx, user_word, bet):
+    money = cursor.execute(f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
+    if int(bet) <= money[0]:
+        await command_heads_and_tails.heads_and_tails(ctx, user_word, bet)
     else:
-        num = random.randint(1, 5)
-        if int(number) == num:
-            add_coins(ctx.message.author, int(bet) * 5)
-            await ctx.send(f"Выпало число {num}, вы выиграли!!!!!!!!")
-        else:
-            take_away_coins(ctx.message.author, int(bet))
-            await ctx.send(f"Выпало число {num}, вы проиграли(")
+        await ctx.send(f"Не достаточно коинов.\n"
+                       f"Ваш баланс - {money[0]}")
+
+
+@bot.command()
+async def gdz(ctx):
+    await command_gdz.c_gdz(ctx)
 
 
 bot.run(settings['token'])
