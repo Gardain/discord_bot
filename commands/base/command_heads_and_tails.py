@@ -11,26 +11,26 @@ async def heads_and_tails(ctx, user_word, bet):
     if num == "орёл":
         if user_word.lower() == 'орёл':
             add_coins(ctx.message.author, int(bet) * 2)
-            await ctx.send("Орёл! Вы выиграли!")
             money = cursor.execute(
                 f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
-            await ctx.channel.send(f'Ваш баланс - {money[0]}')
+            await ctx.send(f"Орёл! Вы выиграли!\n"
+                           f"Ваш баланс - {money[0]}")
         else:
             take_away_coins(ctx.message.author, int(bet))
-            await ctx.send("Орёл! Вы проиграли!")
             money = cursor.execute(
                 f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
-            await ctx.channel.send(f'Ваш баланс - {money[0]}')
+            await ctx.send(f"Орёл! Вы проиграли!\n"
+                           f"Ваш баланс - {money[0]}")
     else:
         if user_word.lower() == 'решка':
             add_coins(ctx.message.author, int(bet) * 2)
-            await ctx.send("Решка! Вы выиграли!")
             money = cursor.execute(
                 f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
-            await ctx.channel.send(f'Ваш баланс - {money[0]}')
+            await ctx.send(f"Решка! Вы выиграли!\n"
+                           f"Ваш баланс - {money[0]}")
         else:
             take_away_coins(ctx.message.author, int(bet))
-            await ctx.send("Решка! Вы проиграли!")
             money = cursor.execute(
                 f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
-            await ctx.channel.send(f'Ваш баланс - {money[0]}')
+            await ctx.send(f"Решка! Вы проиграли!\n"
+                           f"Ваш баланс - {money[0]}")

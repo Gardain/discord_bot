@@ -6,6 +6,7 @@ from commands.base import command_login, command_roll_dice
 from config import bot, settings
 from commands.admin.add_coins import add_coins
 from commands.admin.take_away_coins import take_away_coins
+from discord_bot.commands.base import command_number_choise, command_heads_and_tails
 
 
 @bot.listen('on_message')  # исправил проблему с on_message (запрещал запуск любых дополнительных команд)
@@ -55,8 +56,18 @@ async def games(msg):
 
 
 @bot.command()
+async def heads_and_tails(ctx, user_word, bet):
+    await command_heads_and_tails.heads_and_tails(ctx, user_word, bet)
+
+
+@bot.command()
 async def roll_dice(ctx):
     await command_roll_dice.roll_dice(ctx)
+
+
+@bot.command()
+async def choose_number(ctx, number, bet):
+    await command_number_choise.choose_number(ctx, number, bet)
 
 
 bot.run(settings['token'])
