@@ -2,7 +2,7 @@ import discord
 
 from commands.admin import command_de_login, command_help, command_info
 from commands.base import command_login, command_roll_dice
-from config import bot, settings
+from config import bot, settings, cursor
 from discord_bot.commands.base import command_number_choise, command_heads_and_tails
 
 
@@ -54,7 +54,12 @@ async def games(msg):
 
 @bot.command()
 async def heads_and_tails(ctx, user_word, bet):
-    await command_heads_and_tails.heads_and_tails(ctx, user_word, bet)
+    money = cursor.execute(f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
+    if int(bet) <= money[0]:
+        await command_heads_and_tails.heads_and_tails(ctx, user_word, bet)
+    else:
+        await ctx.send(f"Не достаточно коинов.\n"
+                       f"Ваш баланс - {money[0]}")
 
 
 @bot.command()
@@ -64,7 +69,12 @@ async def roll_dice(ctx):
 
 @bot.command()
 async def choose_number(ctx, number, bet):
-    await command_number_choise.choose_number(ctx, number, bet)
+    money = cursor.execute(f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
+    if int(bet) <= money[0]:
+        await command_number_choise.choose_number(ctx, number, bet)
+    else:
+        await ctx.send(f"Не достаточно коинов.\n"
+                       f"Ваш баланс - {money[0]}")
 
 
 bot.run(settings['token'])

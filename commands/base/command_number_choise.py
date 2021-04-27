@@ -11,9 +11,9 @@ async def choose_number(ctx, number, bet):
     else:
         num = random.randint(1, 5)
         if int(number) == num:
+            add_coins(ctx.message.author, int(bet) * 5)
             money = cursor.execute(
                 f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
-            add_coins(ctx.message.author, int(bet) * 5)
             await ctx.send(f"Выпало число {num}, вы выиграли!!!!!!!!\n"
                            f"Ваш баланс - {money[0]}")
         else:
