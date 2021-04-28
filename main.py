@@ -5,6 +5,7 @@ from commands.admin import command_de_login, command_help, command_info
 from commands.base import command_login, command_roll_dice, command_gdz
 from commands.base import command_number_choise, command_heads_and_tails
 from config import bot, settings, cursor
+from discord_bot.commands.admin import command_shop
 
 
 @bot.listen('on_message')  # исправил проблему с on_message (запрещал запуск любых дополнительных команд)
@@ -27,10 +28,10 @@ async def add_role(ctx, role: discord.Role, member: discord.Member = None):
         roles.append(i.name)
 
     member = member or ctx.message.author
-    if 'Суперадмин' in roles:
-        await member.add_roles(role)
-    else:
-        await ctx.channel.send('У вас нет прав на использование этой команды')
+    # if 'Суперадмин' in roles:
+    await member.add_roles(role)
+    # else:
+    # await ctx.channel.send('У вас нет прав на использование этой команды')
 
 
 @bot.command()
@@ -63,6 +64,11 @@ async def unban(ctx, member):
 @bot.command()  # "Регистрация" на канале
 async def login(ctx):
     await command_login.login(ctx)
+
+
+@bot.command()  # "Регистрация" на канале
+async def shop(ctx):
+    await command_shop.shop(ctx)
 
 
 @bot.command()  # "Выход" из канала
