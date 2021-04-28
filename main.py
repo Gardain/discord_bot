@@ -27,10 +27,11 @@ async def add_role(ctx, role: discord.Role, member: discord.Member = None):
         roles.append(i.name)
 
     member = member or ctx.message.author
-    # if 'Суперадмин' in roles:
-    await member.add_roles(role)
-    # else:
-    # await ctx.channel.send('У вас нет прав на использование этой команды')
+    if 'Суперадмин' in roles:
+        await member.add_roles(role)
+        await ctx.channel.send(f':tada:Роль {role.mention} выдана пользователью {member.mention}:tada:')
+    else:
+        await ctx.channel.send('У вас нет прав на использование этой команды')
 
 
 @bot.command()
@@ -46,6 +47,23 @@ async def ban(ctx, member: discord.Member = None, reason=None):
         else:
             await ctx.guild.ban(member, reason=reason)
             await ctx.channel.send(f"{member} is banned!")
+    else:
+        await ctx.channel.send('У вас нет прав на использование этой команды')
+
+
+@bot.command()
+async def kick(ctx, member: discord.Member = None, reason=None):
+    roles = []
+    for i in ctx.message.author.roles:
+        roles.append(i.name)
+
+    member = member or ctx.message.author
+    if 'Админ' in roles:
+        if member == ctx.message.author:
+            await ctx.channel.send(f'Нельзя кикнуть самого себя!!!')
+        else:
+            await ctx.guild.kick(member, reason=reason)
+            await ctx.channel.send(f"{member} is kicked!")
     else:
         await ctx.channel.send('У вас нет прав на использование этой команды')
 
