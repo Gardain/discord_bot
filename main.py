@@ -40,11 +40,6 @@ async def add_role(ctx, role: discord.Role, member: discord.Member = None):
 async def buy(ctx, role: discord.Role):
     await command_buy.buy(ctx, role)
 
-    await ctx.channel.send(f':tada:Роль {role.mention} выдана пользователью {member.mention}:tada:')
-
-else:
-await ctx.channel.send('У вас нет прав на использование этой команды')
-
 
 @bot.command()
 async def ban(ctx, member: discord.Member = None, reason=None):
