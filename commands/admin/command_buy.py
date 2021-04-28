@@ -1,3 +1,6 @@
+import random
+
+from discord_bot.commands.admin.take_away_coins import take_away_coins
 from discord_bot.config import cursor
 
 
@@ -8,16 +11,24 @@ async def buy(ctx, desired_role):
         "Переводчик": 10000,
         "Премеум": 10000,
         "Премеум+": 20000,
-        "Суперадмин": 10000000
+        "Суперадмин": 500000
     }
 
+    desired_role_named = desired_role.name
     user = ctx.message.author
     autor_roles = [role.name for role in ctx.message.author.roles]
     money = cursor.execute(f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
-    if desired_role.name in roles:
-        if desired_role.name not in autor_roles:
-            if money[0] >= roles[desired_role.name]:
+    if desired_role_named in roles:
+        if desired_role_named not in autor_roles:
+            if money[0] >= roles[desired_role_named]:
+                return_you_got_this_role = random.choice(
+                    [f"{user.mention} приобрел роль {desired_role.mention}.",
+                     f"{user.mention} купил роль {desired_role.mention}.",
+                     f"{user.mention} получил роль {desired_role.mention}."]
+                )
+                take_away_coins(ctx.message.author, roles[desired_role_named])
                 await user.add_roles(desired_role)
+                await ctx.channel.send(return_you_got_this_role)
             else:
                 await ctx.channel.send(f':x:Не хватает коинов:x:\n'
                                        f'Ваш баланс - {money[0]}')
