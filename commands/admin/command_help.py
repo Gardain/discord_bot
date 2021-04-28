@@ -1,15 +1,15 @@
 async def help(msg):
     await msg.channel.send(f'Привет, {msg.author.mention}\n'
                            f'Я умею выполнять следующие команды:\n'
-                           f':red_circle:!help - выводит список всех доступных команд\n\n'
-                           f':red_circle:!games - выводит список возможных игр\n\n'
-                           f':red_circle:!info - получить информацию о своём количестве валюты\n\n'
-                           f':red_circle:!shop_help  - Выводит команды доступные для покупки\n\n'
-                           f':red_circle:!gdz - позволяет получить ссылку на решебник'
-                           f' введеного пользователем учебника(доступен только для обладателей роли :boom:Школьник)\n\n'
+                           f':helmet_with_cross: !help - выводит список всех доступных команд :helmet_with_cross:\n\n'
+                           f':game_die: !games - выводит список возможных игр :game_die:\n\n'
+                           f':bookmark_tabs: !info - получить информацию о пользователе :bookmark_tabs:\n\n'
+                           f':red_circle: !shop_help  - Выводит команды доступные для покупки :red_circle:\n\n'
+                           f':green_book: !gdz - позволяет получить ссылку на решебник '
+                           f' введеного пользователем учебника(доступен только для обладателей'
+                           f' роли :boom:Школьник):green_book:\n\n'
                            
-                           f':red_circle:!ban - забанить кента(доступен только для обладателей роли'
-                           f' :boom:Суперадмин)\n\n'
-                           f':red_circle:!login - зарегистрироваться на сервере\n\n'
-                           f':red_circle:!login - зарегистрироваться на сервере\n\n'
-                           f':red_circle:!de_login - удалить свой аккаунт с сервера.')
+                           f':x:!ban - забанить кента(доступен только для обладателей роли'
+                           f' :boom:Суперадмин) :x:\n\n'
+                           f':inbox_tray: !login - зарегистрироваться на сервере :inbox_tray:\n\n'
+                           f':outbox_tray: !de_login - удалить свой аккаунт с сервера. :outbox_tray:')
