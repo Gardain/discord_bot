@@ -1,7 +1,7 @@
 import discord
 import requests
 
-from commands.admin import command_de_login, command_help, command_info
+from commands.admin import command_de_login, command_help, command_info, command_shop_help
 from commands.base import command_login, command_roll_dice, command_gdz
 from commands.base import command_number_choise, command_heads_and_tails
 from config import bot, settings, cursor
@@ -151,6 +151,11 @@ async def translate(ctx, language='en|ru', *text):
 @bot.command()
 async def gdz(ctx):
     await command_gdz.c_gdz(ctx)
+
+
+@bot.command()
+async def shop_help(ctx):
+    await command_shop_help.shop_help(ctx)
 
 
 bot.run(settings['token'])
