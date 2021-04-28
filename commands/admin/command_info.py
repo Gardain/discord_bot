@@ -1,11 +1,9 @@
-from discord.utils import get
+from config import cursor
 
 
 async def info(ctx, member):
-    if get(ctx.message.author.roles, name="Администратор"):
-        await ctx.channel.send(f'Данные пользователя {member.mention}\n'
+    money = cursor.execute(f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
+    await ctx.channel.send(f'Данные пользователя {member.mention}\n'
                                f'id - {member.id}\n'
                                f'name - {member.name}\n'
-                               f'coins - 1000') #  aaaaaaaaaaaaaaa
-    else:
-        await ctx.channel.send(f'У вас нет прав для использования этой команды :(')
+                               f'coins - {money[0]}')

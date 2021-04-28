@@ -1,7 +1,7 @@
 import random
 
-from discord_bot.commands.admin.take_away_coins import take_away_coins
-from discord_bot.config import cursor
+from commands.admin.take_away_coins import take_away_coins
+from config import cursor
 
 
 async def buy(ctx, desired_role):

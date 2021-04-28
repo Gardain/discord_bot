@@ -1,8 +1,8 @@
 from random import choice
 
-from discord_bot.commands.admin.add_coins import add_coins
-from discord_bot.commands.admin.take_away_coins import take_away_coins
-from discord_bot.config import cursor, array_of_dashes, dashes
+from commands.admin.add_coins import add_coins
+from commands.admin.take_away_coins import take_away_coins
+from config import cursor, array_of_dashes, dashes
 
 
 async def roll_dice(ctx):
@@ -10,7 +10,7 @@ async def roll_dice(ctx):
     message = ctx.message.content.split()
     bet = int(message[-1])
     more_less = message[-2].lower()
-    if int(bet) <= money:
+    if int(bet) <= money[0]:
         if (more_less == 'больше' or more_less == 'меньше') and bet <= money[0]:
             res = [choice(array_of_dashes) for _ in range(2)]
             count = 0
@@ -27,13 +27,15 @@ async def roll_dice(ctx):
                     add_coins(ctx.message.author, int(bet))
                     money = cursor.execute(
                         f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
-                    await ctx.channel.send(f'Вы выйграли, выпало число {count} ({dishes[0]} + {dishes[1]})'
+                    await ctx.channel.send(f"{ctx.message.author.mention}\n"
+                                           f'Вы выйграли, выпало число {count} ({dishes[0]} + {dishes[1]})\n'
                                            f'Ваш баланс - {money[0]}')
                 else:
                     take_away_coins(ctx.message.author, int(bet))
                     money = cursor.execute(
                         f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
-                    await ctx.channel.send(f'Вы проиграли, выпало число {count} ({dishes[0]} + {dishes[1]})'
+                    await ctx.channel.send(f'f"{ctx.message.author.mention}\n"'
+                                           f'Вы проиграли, выпало число {count} ({dishes[0]} + {dishes[1]})\n'
                                            f'Ваш баланс - {money[0]}')
 
             elif count <= 6:
@@ -41,13 +43,15 @@ async def roll_dice(ctx):
                     add_coins(ctx.message.author, int(bet))
                     money = cursor.execute(
                         f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
-                    await ctx.channel.send(f'Вы выйграли, выпало число {count} ({dishes[0]} + {dishes[1]})'
+                    await ctx.channel.send(f'f"{ctx.message.author.mention}\n"'
+                                           f'Вы выйграли, выпало число {count} ({dishes[0]} + {dishes[1]})\n'
                                            f'Ваш баланс - {money[0]}')
                 else:
                     take_away_coins(ctx.message.author, int(bet))
                     money = cursor.execute(
                         f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
-                    await ctx.channel.send(f'Вы проиграли, выпало число {count} ({dishes[0]} + {dishes[1]})'
+                    await ctx.channel.send(f'f"{ctx.message.author.mention}\n"'
+                                           f'Вы проиграли, выпало число {count} ({dishes[0]} + {dishes[1]})\n'
                                            f'Ваш баланс - {money[0]}')
 
         else:
