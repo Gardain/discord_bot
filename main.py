@@ -9,13 +9,6 @@ from config import bot, settings, cursor
 from commands.admin import command_buy
 
 
-@bot.listen('on_message')  # исправил проблему с on_message (запрещал запуск любых дополнительных команд)
-async def on_message(msg):
-    if msg.author != bot.user:
-        if msg.content.lower() == 'привет':
-            await msg.channel.send(f'Привет, {msg.author.mention}')
-
-
 @bot.command()  # основная информация о пользователе
 async def info(ctx, member: discord.Member = None):
     member = member or ctx.message.author
