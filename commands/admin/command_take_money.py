@@ -1,4 +1,4 @@
-from config import cursor
+from discord_bot.config import cursor
 
 
 async def take_money():

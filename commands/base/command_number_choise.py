@@ -1,8 +1,8 @@
 import random
 
-from commands.admin.add_coins import add_coins
-from commands.admin.take_away_coins import take_away_coins
-from config import bot, cursor
+from discord_bot.commands.admin.add_coins import add_coins
+from discord_bot.commands.admin.take_away_coins import take_away_coins
+from discord_bot.config import cursor
 
 
 async def choose_number(ctx, number, bet):

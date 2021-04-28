@@ -1,8 +1,8 @@
 from random import choice
 
-from commands.admin.add_coins import add_coins
-from commands.admin.take_away_coins import take_away_coins
-from config import array_of_dashes, cursor, dashes
+from discord_bot.commands.admin.add_coins import add_coins
+from discord_bot.commands.admin.take_away_coins import take_away_coins
+from discord_bot.config import cursor, array_of_dashes, dashes
 
 
 async def roll_dice(ctx):
