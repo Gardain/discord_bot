@@ -5,7 +5,6 @@ from commands.admin import command_de_login, command_help, command_info, command
 from commands.base import command_login, command_roll_dice, command_gdz
 from commands.base import command_number_choise, command_heads_and_tails
 from config import bot, settings, cursor
-from discord_bot.commands.admin import command_shop, command_student, command_translater, command_admin
 
 
 @bot.listen('on_message')  # исправил проблему с on_message (запрещал запуск любых дополнительных команд)
@@ -68,23 +67,7 @@ async def login(ctx):
 
 @bot.command()  # Выводит список возможных ролей
 async def shop(ctx):
-    await command_shop.shop(ctx)
-
-
-@bot.command()  # Покупка роли Школьник
-async def student(ctx, role: discord.Role, member: discord.Member = None):
-    await command_student.student(ctx, role, member)
-
-
-@bot.command()  # Покупка роли Переводчик
-async def translater(ctx, role: discord.Role, member: discord.Member = None):
-    await command_translater.translater(ctx, role, member)
-
-
-@bot.command()  # Покупка роли Администратор
-async def admin(ctx, role: discord.Role, member: discord.Member = None):
-    await command_admin.admin(ctx, role, member)
-
+    await command_shop_help.shop_help(ctx)
 
 
 @bot.command()  # "Выход" из канала
