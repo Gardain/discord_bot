@@ -1,7 +1,7 @@
 import discord
 import requests
 
-from commands.admin import command_de_login, command_help, command_info, command_shop_help
+from commands.admin import command_de_login, command_help, command_info, command_shop_help, command_rules
 from commands.base import command_login, command_roll_dice, command_gdz
 from commands.base import command_number_choise, command_heads_and_tails
 from config import bot, settings, cursor
