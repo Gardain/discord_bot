@@ -5,6 +5,7 @@ from commands.admin import command_de_login, command_help, command_info, command
 from commands.base import command_login, command_roll_dice, command_gdz
 from commands.base import command_number_choise, command_heads_and_tails
 from config import bot, settings, cursor
+
 from discord_bot.commands.admin import command_buy
 
 
@@ -30,6 +31,7 @@ async def add_role(ctx, role: discord.Role, member: discord.Member = None):
     member = member or ctx.message.author
     if 'Суперадмин' in roles:
         await member.add_roles(role)
+
     else:
         await ctx.channel.send('У вас нет прав на использование этой команды')
 
@@ -37,6 +39,11 @@ async def add_role(ctx, role: discord.Role, member: discord.Member = None):
 @bot.command()  # Покупка роли
 async def buy(ctx, role: discord.Role):
     await command_buy.buy(ctx, role)
+
+    await ctx.channel.send(f':tada:Роль {role.mention} выдана пользователью {member.mention}:tada:')
+
+else:
+await ctx.channel.send('У вас нет прав на использование этой команды')
 
 
 @bot.command()
@@ -57,6 +64,23 @@ async def ban(ctx, member: discord.Member = None, reason=None):
 
 
 @bot.command()
+async def kick(ctx, member: discord.Member = None, reason=None):
+    roles = []
+    for i in ctx.message.author.roles:
+        roles.append(i.name)
+
+    member = member or ctx.message.author
+    if 'Админ' in roles:
+        if member == ctx.message.author:
+            await ctx.channel.send(f'Нельзя кикнуть самого себя!!!')
+        else:
+            await ctx.guild.kick(member, reason=reason)
+            await ctx.channel.send(f"{member} is kicked!")
+    else:
+        await ctx.channel.send('У вас нет прав на использование этой команды')
+
+
+@bot.command()
 async def unban(ctx, member):
     banned_users = await ctx.guild.bans()
     for ban_entry in banned_users:
@@ -69,6 +93,11 @@ async def unban(ctx, member):
 @bot.command()  # "Регистрация" на канале
 async def login(ctx):
     await command_login.login(ctx)
+
+
+@bot.command()  # Выводит список возможных ролей
+async def shop(ctx):
+    await command_shop_help.shop_help(ctx)
 
 
 @bot.command()  # "Выход" из канала
