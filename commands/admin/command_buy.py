@@ -22,19 +22,19 @@ async def buy(ctx, desired_role):
         if desired_role_named not in autor_roles:
             if money[0] >= roles[desired_role_named]:
                 return_you_got_this_role = random.choice(
-                    [f"{user.mention} приобрел роль {desired_role.mention}.",
-                     f"{user.mention} купил роль {desired_role.mention}.",
-                     f"{user.mention} получил роль {desired_role.mention}."]
+                    [f":ballot_box_with_check: {user.mention} приобрел роль {desired_role.mention}.",
+                     f":ballot_box_with_check: {user.mention} купил роль {desired_role.mention}.",
+                     f":ballot_box_with_check: {user.mention} получил роль {desired_role.mention}."]
                 )
                 take_away_coins(ctx.message.author, roles[desired_role_named])
                 await user.add_roles(desired_role)
                 await ctx.channel.send(return_you_got_this_role)
             else:
                 await ctx.channel.send(f':x:Не хватает коинов:x:\n'
-                                       f'Ваш баланс - {money[0]}')
+                                       f':ballot_box_with_check:Ваш баланс - {money[0]}')
 
         else:
             await ctx.channel.send(f'У вас уже есть эта роль <3')
     else:
-        await ctx.channel.send(f'Такой роли не существует. '
-                               f'Проверте правильность написания роли.')
+        await ctx.channel.send(f':x: Такой роли не существует. '
+                               f':x: Проверте правильность написания роли.')
