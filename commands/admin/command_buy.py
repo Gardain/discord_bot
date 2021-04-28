@@ -1,4 +1,4 @@
-from discord_bot.config import cursor
+from config import cursor
 
 
 async def buy(ctx, desired_role):
@@ -19,11 +19,11 @@ async def buy(ctx, desired_role):
             if money[0] >= roles[desired_role.name]:
                 await user.add_roles(desired_role)
             else:
-                await ctx.channel.send(f':x:Не хватает коинов:x:\n'
+                await ctx.channel.send(f':x: Не хватает коинов :x:\n'
                                        f'Ваш баланс - {money[0]}')
 
         else:
             await ctx.channel.send(f'У вас уже есть эта роль <3')
     else:
-        await ctx.channel.send(f'Такой роли не существует. '
+        await ctx.channel.send(f':x: Такой роли не существует.!!! :x:\n'
                                f'Проверте правильность написания роли.')
