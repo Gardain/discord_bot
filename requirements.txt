@@ -1,4 +1,2 @@
 gdz
 discord
-sqlite3
-requests
