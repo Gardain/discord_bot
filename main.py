@@ -4,7 +4,7 @@ import requests
 from commands.admin import command_de_login, command_help, command_info, command_shop_help, command_rules
 from commands.base import command_login, command_roll_dice, command_gdz
 from commands.base import command_number_choise, command_heads_and_tails
-from config import bot, settings, cursor
+from config import bot, settings, cursor, client
 
 from commands.admin import command_buy
 
@@ -41,7 +41,7 @@ async def buy(ctx, role: discord.Role):
     await command_buy.buy(ctx, role)
 
 
-@bot.command()
+@bot.command()  # бан пользователя
 async def ban(ctx, member: discord.Member = None, reason=None):
     roles = []
     for i in ctx.message.author.roles:
@@ -58,7 +58,7 @@ async def ban(ctx, member: discord.Member = None, reason=None):
         await ctx.channel.send('У вас нет прав на использование этой команды')
 
 
-@bot.command()
+@bot.command()  # кикнуть пользователя
 async def kick(ctx, member: discord.Member = None, reason=None):
     roles = []
     for i in ctx.message.author.roles:
@@ -75,7 +75,7 @@ async def kick(ctx, member: discord.Member = None, reason=None):
         await ctx.channel.send('У вас нет прав на использование этой команды')
 
 
-@bot.command()
+@bot.command()  # разбан пользователя
 async def unban(ctx, member):
     banned_users = await ctx.guild.bans()
     for ban_entry in banned_users:
@@ -105,7 +105,7 @@ async def help(msg):
     await command_help.help(msg)
 
 
-@bot.command()
+@bot.command()  # выводит список игр
 async def games(msg):
     emb = discord.Embed(title='Навигация по командам', colour=discord.Color.gold())
     emb.add_field(name='!roll_dice', value='Игра в кости\n'
@@ -117,17 +117,17 @@ async def games(msg):
     await msg.channel.send(embed=emb)
 
 
-@bot.command()
+@bot.command()  # игра в кости
 async def roll_dice(ctx):
     await command_roll_dice.roll_dice(ctx)
 
 
-@bot.command()
+@bot.command()  # игра в выбор номера
 async def choose_number(ctx, number, bet):
     await command_number_choise.choose_number(ctx, number, bet)
 
 
-@bot.command()
+@bot.command()  # игра в "Орел и Решку"
 async def heads_and_tails(ctx, user_word, bet):
     money = cursor.execute(f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
     if int(bet) <= money[0]:
@@ -137,7 +137,7 @@ async def heads_and_tails(ctx, user_word, bet):
                        f"Ваш баланс - {money[0]}")
 
 
-@bot.command()
+@bot.command()  # переводчик
 async def translate(ctx, language='en|ru', *text):
     roles = []
     for i in ctx.message.author.roles:
@@ -156,19 +156,20 @@ async def translate(ctx, language='en|ru', *text):
         await ctx.channel.send('У вас нет прав на использование этой команды')
 
 
-@bot.command()
+@bot.command()  # гдз
 async def gdz(ctx):
     await command_gdz.c_gdz(ctx)
 
 
-@bot.command()
+@bot.command()  # вывод списка преобретаемых ролей
 async def shop_help(ctx):
     await command_shop_help.shop_help(ctx)
 
 
-@bot.command()
+@bot.command()  # правила сервера
 async def rules(ctx):
     await command_rules.rules(ctx)
+
 
 
 bot.run(settings['token'])
