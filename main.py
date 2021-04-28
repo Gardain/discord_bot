@@ -1,12 +1,12 @@
 import discord
 import requests
 
-from commands.admin import command_de_login, command_help, command_info, command_shop_help
+from commands.admin import command_de_login, command_help, command_info, command_shop_help, command_rules
 from commands.base import command_login, command_roll_dice, command_gdz
 from commands.base import command_number_choise, command_heads_and_tails
 from config import bot, settings, cursor
 
-from discord_bot.commands.admin import command_buy
+from commands.admin import command_buy
 
 
 @bot.listen('on_message')  # исправил проблему с on_message (запрещал запуск любых дополнительных команд)
@@ -164,6 +164,11 @@ async def gdz(ctx):
 @bot.command()
 async def shop_help(ctx):
     await command_shop_help.shop_help(ctx)
+
+
+@bot.command()
+async def rules(ctx):
+    await command_rules.rules(ctx)
 
 
 bot.run(settings['token'])
