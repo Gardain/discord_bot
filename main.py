@@ -1,5 +1,4 @@
 import discord
-import requests
 
 from commands.admin import command_de_login, command_help, command_info, command_shop_help, command_rules
 from commands.admin.translate_api import translate_api

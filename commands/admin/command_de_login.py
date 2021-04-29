@@ -2,7 +2,6 @@ from config import cursor, sqlite_connection
 
 
 async def de_login(ctx):  # "Регистрация" на канале
-    print(cursor.execute("""SELECT id_of_user FROM members""").fetchall()[0])
     if cursor.execute("""SELECT id_of_user FROM members""").fetchall() != [] and \
             ctx.message.author.id in cursor.execute("""SELECT id_of_user FROM members""").fetchall()[0]:
         cursor.execute(f"""DELETE from members where id_of_user = {ctx.message.author.id}""")

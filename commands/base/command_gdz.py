@@ -7,7 +7,7 @@ from config import bot
 async def c_gdz(ctx):
     gdz = GDZ()
 
-    await ctx.channel.send('Введите свой класс:')
+    await ctx.channel.send('Введите свой класс: (номер класса)')
     correct_books = []
     clas = await bot.wait_for('message', check=lambda message: message.author == ctx.author)
     clas = clas.content
@@ -15,9 +15,9 @@ async def c_gdz(ctx):
         if int(clas) in i.classes:
             correct_books.append(i)
 
-    await ctx.channel.send('Поиск:')
+    await ctx.channel.send('Поиск: (предмет и автор)')
     search = await bot.wait_for('message', check=lambda message: message.author == ctx.author)
-    search = search.content.split(' ')
+    search = search.content.lower().split(' ')
 
     books = []
     API_ENDPOINT = "https://gdz.ru"
