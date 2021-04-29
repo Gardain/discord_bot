@@ -1,12 +1,11 @@
 import discord
 
+from commands.admin import command_buy
 from commands.admin import command_de_login, command_help, command_info, command_shop_help, command_rules
 from commands.admin.translate_api import translate_api
 from commands.base import command_login, command_roll_dice, command_gdz
 from commands.base import command_number_choise, command_heads_and_tails
 from config import bot, settings, cursor
-
-from commands.admin import command_buy
 
 
 @bot.command()  # основная информация о пользователе
@@ -100,17 +99,16 @@ async def help(msg):
 
 @bot.command()  # выводит список игр
 async def games(msg):
-    emb = discord.Embed(title='Навигация по командам', colour=discord.Color.gold())
-    emb.add_field(name='!roll_dice', value='Игра в кости\n'
-                                           'Пример ввода: !roll_dice '
-                                           '[больше или меньше половины суммы костей(бросается две кости)] '
-                                           '[ставка],'
-                                           ' !roll_dice [меньше] [100] ')
-    emb.add_field(name='!choose_number', value='Угадай число от 1 до 5 и сорви Джекпот!!!\n'
-                                               'Пример ввода: !choose_number [число от 1 до 5] [ставка]')
-    emb.add_field(name='!heads_and_tails', value='Игра в монетку.\n'
-                                                 ' Пример ввода: !heads_and_tails [орел или решка] [ставка]')
-    await msg.channel.send(embed=emb)
+    await msg.channel.send(f'{msg.message.author.mention}. Навигация по играм:\n\n'
+                           f':game_die: !roll_dice - игра в кости (Пример: !roll_dice [больше или меньше'
+                           f' половины суммы костей(бросается две кости)] [ставка]; !roll_dice меньше 100\n\n'
+
+                           f':tada: !choose_number - Угадай число от 1 до 5 и сорви Джекпот!!!'
+                           f' (Пример: !choose_number [число от 1 до 5] [ставка];'
+                           f' !choose_number 5 1000)\n\n'
+
+                           f':coin: !heads_and_tails - игра в монетку. (Пример: !heads_and_tails [орел или решка]'
+                           f' [ставка]; !heads_and_tails орел 1000')
 
 
 @bot.command()  # игра в кости
