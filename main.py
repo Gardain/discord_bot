@@ -119,18 +119,26 @@ async def roll_dice(ctx):
 
 
 @bot.command()  # игра в выбор номера
-async def choose_number(ctx, number, bet):
-    await command_number_choise.choose_number(ctx, number, bet)
+async def choose_number(ctx, number=None, bet=None):
+    if number and bet:
+        await command_number_choise.choose_number(ctx, number, bet)
+    else:
+        await ctx.send(f"Данные введены неверно.\n "
+                       f"Пример ввода: !choose_number [число от 1 до 5] [ставка]")
 
 
 @bot.command()  # игра в "Орел и Решку"
-async def heads_and_tails(ctx, user_word, bet):
+async def heads_and_tails(ctx, user_word=None, bet=None):
     money = cursor.execute(f"""SELECT money FROM members WHERE id_of_user = {ctx.message.author.id}""").fetchall()[0]
-    if int(bet) <= money[0]:
-        await command_heads_and_tails.heads_and_tails(ctx, user_word, bet)
+    if user_word and bet:
+        if int(bet) <= money[0]:
+            await command_heads_and_tails.heads_and_tails(ctx, user_word, bet)
+        else:
+            await ctx.send(f"Не достаточно коинов.\n"
+                           f"Ваш баланс - {money[0]}")
     else:
-        await ctx.send(f"Не достаточно коинов.\n"
-                       f"Ваш баланс - {money[0]}")
+        await ctx.send(f"Данные введены неверно.\n "
+                       f"Пример ввода: !heads_and_tails [орел или решка] [ставка]")
 
 
 @bot.command()  # переводчик
