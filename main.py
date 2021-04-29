@@ -103,9 +103,12 @@ async def help(msg):
 async def games(msg):
     emb = discord.Embed(title='Навигация по командам', colour=discord.Color.gold())
     emb.add_field(name='!roll_dice', value='Игра в кости\n'
-                                           'Пример ввода: !roll_dice [больше или меньше] [ставка]')
+                                           'Пример ввода: !roll_dice '
+                                           '[больше или меньше половины суммы костей(бросается две кости)] '
+                                           '[ставка],'
+                                           ' !roll_dice [меньше] [100] ')
     emb.add_field(name='!choose_number', value='Угадай число от 1 до 5 и сорви Джекпот!!!\n'
-                                               'Пример ввода: !choose_number [ставка]')
+                                               'Пример ввода: !choose_number [число от 1 до 5] [ставка]')
     emb.add_field(name='!heads_and_tails', value='Игра в монетку.\n'
                                                  ' Пример ввода: !heads_and_tails [орел или решка] [ставка]')
     await msg.channel.send(embed=emb)
@@ -161,7 +164,6 @@ async def shop_help(ctx):
 @bot.command()  # правила сервера
 async def rules(ctx):
     await command_rules.rules(ctx)
-
 
 
 bot.run(settings['token'])
