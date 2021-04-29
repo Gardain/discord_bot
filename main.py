@@ -2,6 +2,7 @@ import discord
 import requests
 
 from commands.admin import command_de_login, command_help, command_info, command_shop_help, command_rules
+from commands.admin.translate_api import translate_api
 from commands.base import command_login, command_roll_dice, command_gdz
 from commands.base import command_number_choise, command_heads_and_tails
 from config import bot, settings, cursor
@@ -133,16 +134,14 @@ async def heads_and_tails(ctx, user_word, bet):
 @bot.command()  # переводчик
 async def translate(ctx, language='en|ru', *text):
     roles = []
+    print(text)
     for i in ctx.message.author.roles:
         roles.append(i.name)
 
     if 'Переводчик' in roles:
-        url = "https://api.mymemory.translated.net/get"
-        fromm, on = language.split('|')
-        if (fromm == 'ru' or fromm == 'en') and (on == 'ru' or on == 'en'):
-            querystring = {"langpair": f"{fromm}|{on}", "q": text}
-            response = requests.request("GET", url, params=querystring).json()
-            await ctx.send(f'Перевод текста:\n{response["responseData"]["translatedText"]}')
+        if language == "en|ru" or language == "ru|en":
+            translate = translate_api(f"{language}", ' '.join(text))
+            await ctx.send(f'Перевод текста:\n{translate}')
         else:
             await ctx.send(f'Неверно введен язык ввода, повторите попытку')
     else:
