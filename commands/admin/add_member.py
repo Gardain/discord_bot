@@ -1,4 +1,4 @@
-from config import cursor, sqlite_connection
+from discord_bot.config import cursor, sqlite_connection
 
 
 def add_member(msg_user):  # функция для добавления нового юзера в базу данных

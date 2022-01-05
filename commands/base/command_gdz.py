@@ -1,7 +1,7 @@
 import discord
 from gdz import GDZ
 
-from config import bot
+from discord_bot.config import bot
 
 
 async def c_gdz(ctx):
